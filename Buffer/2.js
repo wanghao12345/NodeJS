@@ -18,7 +18,7 @@ console.log(bf3.toString());
 
 */
 
-var bf = new Buffer('miaov');
+/*var bf = new Buffer('miaov');
 console.log(bf);
 
 var bf4 = new Buffer(10);
@@ -27,6 +27,6 @@ console.log(bf4);
 
 bf4[0] = 2;
 console.log(bf4);
-console.log(bf);
+console.log(bf);*/
 
 

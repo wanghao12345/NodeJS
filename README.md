@@ -82,35 +82,81 @@ NodeJs:
 四、Buffer类
     一个用于更好的操作二进制数据的类，我们在操作文件或者网络数据的时候，其实操作的就是二进制数据流，
     Node为我们提供了一个更加方便的去操作这种数据流的类Buffer,它是一个全局的类
+    实例方法：
+        1.new Buffer(size)已经废弃 -> 使用Buffer.alloc(size)或Buffer.allocUnsafe(size)代替
+            size [Number] 创建一个Buffer对象，并为这个对象分配一个大小。当我们为一个Buffer对象分配空间大小
+            后，其长度是固定的，不能更改
+        2.new Buffer(array)已经废弃 -> 使用Buffer.from(array)代替
+            array <integer[]> 要从中复制的字节数组
+        3.new Buffer(string, [encoding])已经废弃 -> 使用Buffer.from(string, [encoding])代替
+            string <string> 要编码的字符串
+            encoding <string> string的字符串编码。默认：'utf8'
+        4.buffer.length
+            buffer的bytes大小
+        5.buffer[index]
+            获取或者设置在指定index索引位置的8位字节内容
+        6.buffer.write(string, [offset], [length], [encoding])
+            根据参数offset偏移量和指定的encoding编码方式，将参数string数据写入buffer
+        7.buffer.toString([encoding], [start], [end])
+            根据encoding参数，默认是utf8，返回一个解码的string类型
+        8.buffer.toJSON()
+            返回一个JSON表示的Buffer实例，JSON.stringify将会默认调用来字符串序列化这个Buffer实例
+        9.buffer.slice([start], [end])
+            返回一个新的buffer，这个buffer将会和老的buffer引用相同的内存地址
+            注意：修改新的这个buffer实例slice切片，也会改变原来的buffer
+        10.buffer.copy(targetBuffer, [targetStart], [sourceStart], [sourceEnd])
+            进行buffer的拷贝
+    Buffer类方法：
+        1.Buffer.isEncoding(encoding)
+            如果给定的编码encoding是有效的，返回true，否则返回false
+        2.Buffer.isBuffer(obj)
+            测试这个obj是否是一个Buffer
+        3.Buffer.byteLength(string, [encoding])
+            将会返回这个字符串真实byte长度，encoding编码默认是utf-8
+        4.Buffer.concat(list, [totalLength])
+            返回一个保存着将传入buffer数组中所有buffer对象拼接在一起的buffer对象
 
-    1.new Buffer(size)已经废弃 -> 使用Buffer.alloc(size)或Buffer.allocUnsafe(size)代替
-        size [Number] 创建一个Buffer对象，并为这个对象分配一个大小。当我们为一个Buffer对象分配空间大小
-        后，其长度是固定的，不能更改
-    2.new Buffer(array)已经废弃 -> 使用Buffer.from(array)代替
-        array <integer[]> 要从中复制的字节数组
-    3.new Buffer(string, [encoding])已经废弃 -> 使用Buffer.from(string, [encoding])代替
-        string <string> 要编码的字符串
-        encoding <string> string的字符串编码。默认：'utf8'
-    4.buffer.length
-        buffer的bytes大小
-    5.buffer[index]
-        获取或者设置在指定index索引位置的8位字节内容
-    6.buffer.write(string, [offset], [length], [encoding])
-        根据参数offset偏移量和指定的encoding编码方式，将参数string数据写入buffer
-    7.buffer.toString([encoding], [start], [end])
-        根据encoding参数，默认是utf8，返回一个解码的string类型
-    8.buffer.toJSON()
-        返回一个JSON表示的Buffer实例，JSON.stringify将会默认调用来字符串序列化这个Buffer实例
-    9.buffer.slice([start], [end])
-        返回一个新的buffer，这个buffer将会和老的buffer引用相同的内存地址
-        注意：修改新的这个buffer实例slice切片，也会改变原来的buffer
-    10.buffer.copy(targetBuffer, [targetStart], [sourceStart], [sourceEnd])
-        进行buffer的拷贝
+五、File System文件系统模块
 
+    该模块是核心模块，需要使用require导入后使用
+    该模块提供了操作文件的一些API
 
-
-
-
+    fs.open(path, flags, [mode], callback)
+        异步版的打开一个文件
+        path: 要打开的文件路径
+        flags: 打开文件的方式 读/写
+        mode: 设置文件的模式 读/写/执行  4/2/1
+        callback(err, fd): 回掉函数
+            err : 文件打开失败的错误保存在err里面，如果成功err为null
+            fd: 被打开文件的标识和定时器
+    fs.openSync(path, flags, [mode])
+        fs.open()的同步版
+    fs.read(fd, buffer, offset, length, position, callback)
+        从指定的文档标识符fd读取文件数据
+        fd: 通过open方法成功打开一个文件返回的编号
+        buffer: buffer对象
+        offset: 新的内容添加到buffer中的起始位置
+        length: 添加到buffer中内容的长度
+        position: 读取的文件的起始位置 null可以
+        callback(err, len, newBf):
+            err: 错误提示
+            len: buffer的长度
+            newBf: 返回buffer
+    fs.readSync(fd, buffer, offset, length, position)
+        fs.read函数的同步版本，返回bytesRead的个数
+    fs.write(fd, buffer, offset, length[, position], callback)
+        通过文件表示fd, 向指定的文件中写入buffer
+    fs.write(fd, data[, position[, encoding]], callback)
+        把data写入到文档中通过指定的fd,如果data不是buffer对象的实例,
+        则会把值强制转化成一个字符串
+    fs.writeSync(fd, buffer, offset, length[, position])
+        fs.write()的同步版本
+    fs.writeSync(fd, data[, position[, encoding]])
+        fs.write()的同步版
+    fs.close(fd, callback)
+        关闭一个打开的文件
+    fs.closeSync(fd)
+        fs.close()的同步版本
 
 
 
