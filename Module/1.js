@@ -13,9 +13,9 @@ __filename: 当前文件被解析过后的路径
 console.log(__filename)
 */
 
-
 /*
 加载模块2.js
-require('./2.js');
-*/
+require('./2.js');*/
 
+// 加载模块2
+// require('./2')
