@@ -146,6 +146,12 @@ NodeJs:
         fs.read函数的同步版本，返回bytesRead的个数
     fs.write(fd, buffer, offset, length[, position], callback)
         通过文件表示fd, 向指定的文件中写入buffer
+        buffer: 要写入的数据
+        offset: buffer对象中要写入的数据的起始位置
+        length: 要写入的buffer数据的长度
+        position: fd中的起始位置
+        callback: 回掉
+        注意：当我们要对打开的文件进行写操作的时候，打开文件的模式应该是读写方式 ‘r+’
     fs.write(fd, data[, position[, encoding]], callback)
         把data写入到文档中通过指定的fd,如果data不是buffer对象的实例,
         则会把值强制转化成一个字符串
@@ -158,16 +164,56 @@ NodeJs:
     fs.closeSync(fd)
         fs.close()的同步版本
 
+    fs.writeFile(filename, data, [options], callback)
+        异步的将数据写入一个文件，如果文件不存在则新建，如果文件原先存在，会被替换。
+        data可以是一个string,也可以是一个原生buffer
+    fs.writeFileSync(filename, data, [options])
+        fs.writeFile的同步版本，注意没有callback,也不需要
+    fs.appendFile(filename, data, [options], callback)
+        异步的将数据添加到一个文件的尾部，如果文件不存在，会创建一个新的文件。
+        data可以是一个string，也可以是一个原生buffer
+    fs.appendFileSync(filename, data, [options])
+        fs.appendFile的同步版本
 
+    fs.readFile(filename, [options], callback)
+        异步读取一个文件的全部内容
+    fs.readFileSync(filename, [options])
+        fs.readFile的同步版本
+    fs.exists(path, callback)
+        检查指定路径的文件或目录是否存在
+    fs.existsSync(path)
+        fs.exists的同步版本
+    fs.unlink(path, callback)
+        删除一个文件
+    fs.unlinkSync(path)
+        fs.unlink()的同步版本
 
+    fs.rename(oldPath, newPath, callback)
+        重命名
+    fs.renameSync(oldPath, newPath)
+        fs.rename()的同步版本
+    fs.stat(path, callback)
+        读取文件信息
+    fs.statSync(path, callback)
+        fs.stat()的同步版本
+    fs.watch(filename, [options], [listener])
+        观察指定路径的改变，filename路径可以是文件或者目录(不稳定)
 
+    fs.mkdir(path, [mode], callback)
+        创建文件夹
+    fs.mkditSync(path, [mode])
+        fs.mkdit的同步版本
+    fs.readdir(path, callback)
+        读取文件夹
+    fs.readdirSync(path)
+        fs.readdir同步版本
+    fs.rmdir(path, callback)
+        删除文件夹
+    fs.rmdirSync(path)
+        fs.rmdir的同步版本
 
-
-
-
-
-
-
+六、前端项目自动化-项目构建（/FileSystem/9.js）
+七、前端项目自动化-自动合并（/FileSystem/10.js）
 
 
 
