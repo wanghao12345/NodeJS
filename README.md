@@ -214,10 +214,58 @@ NodeJs:
 
 六、前端项目自动化-项目构建（/FileSystem/9.js）
 七、前端项目自动化-自动合并（/FileSystem/10.js）
+八、使用node进行web开发
+    浏览器中输入http://www.baidu.com
+	1.用户通过浏览器发送一个http的请求到指定的主机
+	2.服务器接收到该请求，对该请求进行分析和处理
+	3.服务器处理完成以后，返回对应的数据到用户机器
+	4.浏览器接收服务器返回的数据，并根据接收到的进行分析和处理
+    
+    客户端   服务端
+        ->由客户端发送一个http请求到指定的服务端
+        ->服务端接收并处理请求
+        ->返回数据到客户端
 
-
-
-
+    HTTP模块
+        var http = require('http');
+        var server1 = http.createServer([requestListener])
+            -创建并返回一个HTTP服务器对象
+            -requestListener:监听到客户端连接的回调函数
+        server1.listen(port, [hostname], [backlog], [callback])
+            -监听客户端连接请求，只有当调用了listen方法以后，服务器才开始工作
+            -port：监听的端口
+            -hostname：主机名（IP/域名）
+            -backlog：连接等待队列的最大长度
+            -callback：调用listen方法并成功开启监听以后，会触发一个listening事件，
+             callback将作为该事件的执行函数
+        listening事件：当server调用listen方法并成功开始监听以后触发的事件
+        error事件：当服务开启失败的时候触发的事件
+            -参数err：具体的错误对象
+        request事件：当有客户端发送请求到该主机和端口的请求的时候触发
+            -参数request：http.IncomingMessage的一个实例，通过它我们可以获取到这次请求的一些信息，比如头信息，数据等。
+            -参数response：http.ServerResponse的一个实例，通过它我们可以向该次请求的客户端输出响应
+        参数request对象-http.IncomingMessage
+            -httpVersion：使用的http协议的版本
+            -headers：请求头信息中的数据
+            -url：请求的地址
+            -method：请求方式
+        参数response对象-http.ServerResponse
+            -write(chunk, [encoding]): 发送一个数据块到响应正文中
+            -end(chunk, [encoding]): 当所有的正文和头信息发送完成以后调用该方法告诉服务器数据已经全部发送完成了，
+             这个方法在每次完成信息发送以后必须调用，并且是最后调用
+            -statusCode: 该属性用来设置返回的状态码
+            -setHeader(name, value): 设置返回头信息
+            -writeHeader(statusCode, [reasonPhrase], [headers]): 这个方法只能在当前请求中使用一次，并且必须在response.end()之前使用
+    URL模块
+        -var url = require('url')
+        -url.parse('url'):对url格式的字符串进行解析，返回一个对象
+         根据不同的url进行处理，返回不一样的数据
+        -使用fs模块实现nodejs代码和html的分离
+        -get请求的数据处理
+        -post请求的数据处理
+         post发送的数据会被写入缓冲区，需要通过request的data事件和end时间来进行数据拼接处理
+        -querystring模块
+            querystring.parse():将一个query strig反序列化一个对象
 
 
 
